@@ -1,55 +1,97 @@
-RED = '\u001b[41m'
-BLUE = '\u001b[44m'
-WHITE = '\u001b[47m'
-END = '\u001b[0m'
-
-'''for i in range(6):
-    if i < 3:
-        print(f'{BLUE}{"  " * (2 * i + 2)}{WHITE}{"  " * (14 - 2 * i)}{END}')
+RED='\u001b[41m'
+WHITE='\u001b[47m'
+END='\u001b[0m'
+for i in range(7):
+    if i==0 or i==6:
+        print(f'{RED}{" "*29}{END}')
     else:
-        print(f'{BLUE}{"  " * (12 - 2 * i)}{RED}{"  " * (4 + 2 * i)}{END}')'''
+        if i==3:
+            print(f'{RED}{" "*7}{WHITE}{" "*15}{RED}{" "*7}{END}')
+        else:
+            print(f'{RED}{" "*13}{WHITE}{" "*3}{RED}{" "*13}{END}')
+
+print('\n')
 
 
-plot_list = [[0 for i in range(10)] for i in range(10)]
-result = [0 for i in range(10)]
+a=f'{" "*2}{WHITE}{" "*7}{END}{" "*2}'
+b=f'{" "}{WHITE}{" "}{END}{" "*7}{WHITE}{" "}{END}{" "}'
+c=f'{WHITE}{" "}{END}{" "*9}{WHITE}{" "}{END}'
+for i in range(8):
+    print(a*8)
+    print(b*8)
+    print(c*8)
+    print(c*8)
+    print(b*8)
 
-for i in range(10):
-    result[i] = i ** 3
+print('\n')
 
-step = round(abs(result[0] - result[9]) / 9, 2)
-print(step)
 
-for i in range(10):
-    for j in range(10):
-        if j == 0:
-            plot_list[i][j] = step * (8-i) + step
 
+def draw_line(offset=0,length=3):
+    line=" "*length
+    print('|',' '*offset, '*'*length)
+
+offset=24    
 for i in range(9):
-    for j in range(10):
-        if abs(plot_list[i][0] - result[9 - j]) < step:
-            for k in range(9):
-                if 8 - k == j:
-                    plot_list[i][k+1] = 1
+    draw_line(offset,3)
+    offset-=3
+print('- '*22)
+    
+print('\n')
 
-for i in range(9):
-    line = ''
-    for j in range(10):
-        if j == 0:
-            line += '\t' + str(int(plot_list[i][j])) + '\t'
-        if plot_list[i][j] == 0:
-            line += '--'
-        if plot_list[i][j] == 1:
-            line += '!!'
-    print(line)
-print('\t0\t1 2 3 4 5 6 7 8 9')
 
-for i in range(10):
-    #print(plot_list[i])
-    pass
 
-file = open('sequence.txt', 'r')
-list = []
-for number in file:
-    list.append(float(number))
-file.close()
-print(list)
+f=open('sequence.txt', 'r')
+three=0
+notthree=0
+k=0
+for number in f:
+    k+=1
+    if -3<=float(number)<=3:
+        three+=1
+    else: notthree+=1
+perc3=round(three/k*100)
+percn3=round(notthree/k*100)
+print(f"{WHITE}{' '*perc3}{END}")
+print(f"{RED}{' '*percn3}{END}")
+
+
+
+import os
+import time
+
+def clear_console():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+def draw_frame(frame_num):
+    clear_console()
+    if frame_num == 1:
+        print(f'{" "}{WHITE}{" "*3}{END}{" "}')
+        print(f'{WHITE}{" "*5}{END}')
+        print(f'{WHITE}{" "*5}{END}')
+        print(f'{" "}{WHITE}{" "*3}{END}{" "}')
+    elif frame_num == 2:
+        print(f'{" "*2}{WHITE}{" "*1}{END}{" "*2}')
+        print(f'{" "}{WHITE}{" "*3}{END}{" "}')
+        print(f'{" "}{WHITE}{" "*3}{END}{" "}')
+        print(f'{" "*2}{WHITE}{" "*1}{END}{" "*2}')
+    elif frame_num == 3:
+        print(f'{" "*2}{WHITE}{" "*1}{END}{" "*2}')
+        print(f'{" "*2}{WHITE}{" "*1}{END}{" "*2}')
+        print(f'{" "*2}{WHITE}{" "*1}{END}{" "*2}')
+        print(f'{" "*2}{WHITE}{" "*1}{END}{" "*2}')
+    elif frame_num == 4:
+        print(f'{" "*2}{RED}{" "*1}{END}{" "*2}')
+        print(f'{" "}{RED}{" "*3}{END}{" "}')
+        print(f'{" "}{RED}{" "*3}{END}{" "}')
+        print(f'{" "*2}{RED}{" "*1}{END}{" "*2}')
+    elif frame_num == 5:
+        print(f'{" "}{RED}{" "*3}{END}{" "}')
+        print(f'{RED}{" "*5}{END}')
+        print(f'{RED}{" "*5}{END}')
+        print(f'{" "}{RED}{" "*3}{END}{" "}')
+
+
+for i in range(1, 6):
+  draw_frame(i)
+  time.sleep(0.5)
