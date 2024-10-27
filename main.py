@@ -50,6 +50,7 @@ for number in f:
     if -3<=float(number)<=3:
         three+=1
     else: notthree+=1
+f.close()
 perc3=round(three/k*100)
 percn3=round(notthree/k*100)
 print(f"{WHITE}{' '*perc3}{END}")
